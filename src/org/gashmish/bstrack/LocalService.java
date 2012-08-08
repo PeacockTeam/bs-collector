@@ -50,16 +50,15 @@ public class LocalService extends Service {
 								
 				if (gsmCellLocation != null) {
 					bufferedWriter.write(
-						(new Date()).toGMTString() + "," + 
+						(new Date()).toLocaleString() + "," + 
 						gsmCellLocation.getLac() + "," + 
 						gsmCellLocation.getCid() + "\n");
+					
 					bufferedWriter.flush();
 				}
 				
-				//Log.i("Timer", "timer executed");
-				
 			} catch (IOException e) {
-				e.printStackTrace();
+				Log.i("LocalService", "failed to write to file");
 			}
 		}
 	}
@@ -76,7 +75,7 @@ public class LocalService extends Service {
         bufferedWriter = createDumpFile();
         
         if (bufferedWriter != null && telephonyManager != null) {
-            timer.scheduleAtFixedRate(new MyTimerTask(), 0, 10000);
+            timer.scheduleAtFixedRate(new MyTimerTask(), 0, 20000);
         } else {
         	Log.e("LocalService", "failed to init service");
         }
@@ -109,16 +108,10 @@ public class LocalService extends Service {
 			File.separator +
 			"bs_track";
 		
-		Date d = new Date();
-		String dateString = String.format("%d.%d.%d-%d.%d.%d",
-			d.getYear(), d.getMonth(), d.getDay(), d.getHours(), d.getMinutes(), d.getSeconds());
-		
-		String fileName = "bs_dump_" + dateString + ".csv";
-		
 		String fullPath =
 			baseDir +
 			File.separator + 
-			fileName;
+			"bs_dump_appended.csv";
 		
 		try {
 			
