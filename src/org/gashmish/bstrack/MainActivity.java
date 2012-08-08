@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     
@@ -21,8 +22,6 @@ public class MainActivity extends Activity {
         button.setOnClickListener(mStartListener);
         button = (Button)findViewById(R.id.stop);
         button.setOnClickListener(mStopListener);
-        button = (Button)findViewById(R.id.create);
-        button.setOnClickListener(mCreateListener);
     }
 
     private OnClickListener mStartListener = new OnClickListener() {
@@ -33,6 +32,7 @@ public class MainActivity extends Activity {
             // we want it running in our own process and don't want other
             // applications to replace it.
             startService(new Intent(MainActivity.this, LocalService.class));
+            Toast.makeText(getBaseContext(), "Started", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
             // service will not actually stop at this point if there are
             // still bound clients.
             stopService(new Intent(MainActivity.this, LocalService.class));
+            Toast.makeText(getBaseContext(), "Stopped", Toast.LENGTH_SHORT).show();
         }
     };
     

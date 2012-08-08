@@ -50,12 +50,13 @@ public class LocalService extends Service {
 								
 				if (gsmCellLocation != null) {
 					bufferedWriter.write(
-						(new Date()).toString() + "," + 
+						(new Date()).toGMTString() + "," + 
 						gsmCellLocation.getLac() + "," + 
-						gsmCellLocation.getCid());
+						gsmCellLocation.getCid() + "\n");
+					bufferedWriter.flush();
 				}
 				
-				Log.i("Timer", "timer executed");
+				//Log.i("Timer", "timer executed");
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -75,7 +76,7 @@ public class LocalService extends Service {
         bufferedWriter = createDumpFile();
         
         if (bufferedWriter != null && telephonyManager != null) {
-            timer.scheduleAtFixedRate(new MyTimerTask(), 0, 5000);
+            timer.scheduleAtFixedRate(new MyTimerTask(), 0, 10000);
         } else {
         	Log.e("LocalService", "failed to init service");
         }
