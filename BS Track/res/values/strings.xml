@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">BS Track</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="local_service_started">Local service started</string>
+    <string name="local_service_stopped">Local service stopped</string>
+    <string name="local_service_connected">Local service connected</string>
+    <string name="local_service_disconnected">Local service disconnected</string>
+    <string name="local_service_binding">Local service binding</string>
+    
+</resources>
