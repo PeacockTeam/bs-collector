@@ -18,11 +18,11 @@ public class OnAlarmReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
-			//Log.i("LocalService", "onReceive()");
+			Log.i("OnAlarmReceiver", "onReceive()");
 			
 			BufferedWriter bufferedWriter = getLogFileWriter();
 			if (bufferedWriter == null) {
-				Log.e("LocalService", "failed to open log file");
+				Log.e("OnAlarmReceiver", "failed to open log file");
 				return;
 			}
 			
@@ -49,7 +49,7 @@ public class OnAlarmReceiver extends BroadcastReceiver {
 				bufferedWriter.close();
 
 			} catch (IOException e) {
-				Log.i("LocalService", "failed to write to file");
+				Log.i("OnAlarmReceiver", "failed to write to file");
 			}
 		}
 		  

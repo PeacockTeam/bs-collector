@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 public class LocalService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "onStartCommand()");
+    	Log.i("LocalService", "onStartCommand()");        
+        Toast.makeText(getBaseContext(), "Service started", Toast.LENGTH_SHORT).show();
         
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(this, OnAlarmReceiver.class);
@@ -21,15 +23,23 @@ public class LocalService extends Service {
         alarmManager.setRepeating(
         	AlarmManager.RTC_WAKEUP,
         	System.currentTimeMillis(),
-            10000,
+            60000,
             pi);
         
         return START_STICKY;
     }
+    
+    @Override
+    public void onCreate() {
+    	super.onCreate();
+    }
 
     @Override
     public void onDestroy() {
-        Log.i("LocalService", "onDestroy()");
+    	super.onDestroy();
+    	
+    	Log.i("LocalService", "onDestroy()");
+    	Toast.makeText(getBaseContext(), "Service stopped", Toast.LENGTH_SHORT).show();
         
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(this, OnAlarmReceiver.class);
@@ -40,11 +50,7 @@ public class LocalService extends Service {
 	@Override
 	public IBinder onBind(Intent arg0) {
 		return null;
-	}
-	
-    @Override
-    public void onCreate() {
-    	super.onCreate();
-    }
+	}	
+
 }
 
