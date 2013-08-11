@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +17,10 @@ import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 
 public class OnAlarmReceiver extends BroadcastReceiver {
+	
+		SimpleDateFormat dateFormat =
+			new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.US);
+	
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
@@ -31,17 +37,17 @@ public class OnAlarmReceiver extends BroadcastReceiver {
 								
 			GsmCellLocation gsmCellLocation =
 				(GsmCellLocation) telephonyManager.getCellLocation();
-
+			
 			try {
 				
 				if (gsmCellLocation != null) {
 					bufferedWriter.write(
-						(new Date()).toLocaleString() + "," +
+						dateFormat.format(new Date()) + "," +
 						gsmCellLocation.getLac() + "," +
 						gsmCellLocation.getCid() + "\n");
 				} else {
 					bufferedWriter.write(
-						(new Date()).toLocaleString() + "," +
+						dateFormat.format(new Date()) + "," +
 						"0" + "," +
 						"0" + "\n");
 				}
